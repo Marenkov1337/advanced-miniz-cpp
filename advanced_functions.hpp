@@ -64,7 +64,7 @@ namespace zip_functions
     }
 	
 	//Extract an archive (archiveFileName_) to given folder (folderToExtractPath_). If succeeded, returns std::nullopt, otherwise error message
-    std::optional<std::string> ExtractArchiveRecursively(std::string const& , std::string const& folderToExtractPath_)
+    std::optional<std::string> ExtractArchiveRecursively(std::string const& archiveFileName_, std::string const& folderToExtractPath_)
     {       
 
         std::string archiveFileName = archiveFileName_;
