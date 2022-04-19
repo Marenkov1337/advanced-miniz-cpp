@@ -24,3 +24,16 @@ foreach(EXAMPLE_SOURCE IN ITEMS ${EXAMPLE_SOURCES})
     target_include_directories(${EXAMPLE_EXECUTABLE}
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endforeach()
+
+#for build in visual studio
+
+set(PROJECT_ENTITIES
+    ${CMAKE_CURRENT_SOURCE_DIR}/zip_file.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/advanced_functions.hpp)
+
+add_library(${PROJECT_NAME} SHARED ${PROJECT_ENTITIES})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+
+
+install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
