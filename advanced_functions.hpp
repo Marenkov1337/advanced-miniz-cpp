@@ -7,11 +7,13 @@ namespace fs = std::filesystem;
 
 namespace zip_functions
 {
+	//Create folder on given path (folderName)
     void CreateFolder(std::string folderName)
     {
         fs::create_directory(folderName);
     }
-
+	
+	//Replace all symbols (what) to another (with) in given string (in) and return result
     std::string ReplaceAll(std::string const& in, std::string const& what, std::string const& with)
     {
         std::string out = in;
@@ -22,7 +24,8 @@ namespace zip_functions
         }
         return out;
     }
-
+	
+	//Create an archive with given name (newArchiveName) to all files in folder (directoryToArchPath). If succeeded, returns std::nullopt, otherwise error message
     std::optional<std::string> CreateArchiveForDirectoryFiles(std::string const& directoryToArchPath, std::string const& newArchiveName)
     {
         if (directoryToArchPath.empty())
@@ -59,8 +62,9 @@ namespace zip_functions
         }
         return std::nullopt;
     }
-
-    std::optional<std::string> ExtractArchiveRecursively(std::string const& archiveFileName_, std::string const& folderToExtractPath_)
+	
+	//Extract an archive (archiveFileName_) to given folder (folderToExtractPath_). If succeeded, returns std::nullopt, otherwise error message
+    std::optional<std::string> ExtractArchiveRecursively(std::string const& , std::string const& folderToExtractPath_)
     {       
 
         std::string archiveFileName = archiveFileName_;
