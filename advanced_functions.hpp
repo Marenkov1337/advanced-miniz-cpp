@@ -35,6 +35,10 @@ namespace zip_functions
 
         miniz_cpp::zip_file file;
         auto normzlizedFolderPath = ReplaceAll(directoryToArchPath, "\\", "/");
+	
+	if (normzlizedFolderPath.at(normzlizedFolderPath.size() - 1) != '/')
+            normzlizedFolderPath += "/";
+	
         for (const auto& entry : fs::recursive_directory_iterator(directoryToArchPath))
         {
             try
