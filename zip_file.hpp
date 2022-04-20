@@ -32,6 +32,7 @@
 #include <string>
 #include <time.h>
 #include <vector>
+#include <cstring>
 
 /* miniz.c v1.15 - public domain deflate/inflate, zlib-subset, ZIP reading/writing/appending, PNG writing
    See "unlicense" statement at the end of this file.
@@ -562,7 +563,7 @@ typedef struct
 } mz_zip_archive_file_stat;
 
 typedef size_t (*mz_file_read_func)(void *pOpaque, mz_uint64 file_ofs, void *pBuf, size_t n);
-typedef size_t (*mz_file_write_func)(void *pOpaque, mz_uint64 file_ofs, const void *pBuf, size_t n);
+typedef size_t (*mz_file_write_func)(void *pOpaque, /*mz_uint64*/std::uint64_t file_ofs, const void *pBuf, size_t n);
 
 struct mz_zip_internal_state_tag;
 typedef struct mz_zip_internal_state_tag mz_zip_internal_state;
@@ -3949,7 +3950,7 @@ mz_bool mz_zip_reader_extract_file_to_callback(mz_zip_archive *pZip, const char 
 }
 
 #ifndef MINIZ_NO_STDIO
-static size_t mz_zip_file_write_callback(void *pOpaque, mz_uint64 ofs, const void *pBuf, size_t n)
+static size_t mz_zip_file_write_callback(void *pOpaque, /*mz_uint64*/std::uint64_t ofs, const void *pBuf, size_t n)
 {
   (void)ofs; return MZ_FWRITE(pBuf, 1, n, (MZ_FILE*)pOpaque);
 }
@@ -4051,7 +4052,7 @@ mz_bool mz_zip_writer_init(mz_zip_archive *pZip, mz_uint64 existing_size)
   return MZ_TRUE;
 }
 
-static size_t mz_zip_heap_write_func(void *pOpaque, mz_uint64 file_ofs, const void *pBuf, size_t n)
+static size_t mz_zip_heap_write_func(void *pOpaque, /*mz_uint64*/std::uint64_t file_ofs, const void *pBuf, size_t n)
 {
   mz_zip_archive *pZip = (mz_zip_archive *)pOpaque;
   mz_zip_internal_state *pState = pZip->m_pState;
@@ -4094,7 +4095,7 @@ mz_bool mz_zip_writer_init_heap(mz_zip_archive *pZip, size_t size_to_reserve_at_
 }
 
 #ifndef MINIZ_NO_STDIO
-static size_t mz_zip_file_write_func(void *pOpaque, mz_uint64 file_ofs, const void *pBuf, size_t n)
+static size_t mz_zip_file_write_func(void *pOpaque, /*mz_uint64*/std::uint64_t file_ofs, const void *pBuf, size_t n)
 {
   mz_zip_archive *pZip = (mz_zip_archive *)pOpaque;
   mz_int64 cur_ofs = MZ_FTELL64(pZip->m_pState->m_pFile);

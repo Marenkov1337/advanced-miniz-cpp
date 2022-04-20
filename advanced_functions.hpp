@@ -35,10 +35,10 @@ namespace zip_functions
 
         miniz_cpp::zip_file file;
         auto normzlizedFolderPath = ReplaceAll(directoryToArchPath, "\\", "/");
-	
-	if (normzlizedFolderPath.at(normzlizedFolderPath.size() - 1) != '/')
+
+        if (normzlizedFolderPath.at(normzlizedFolderPath.size() - 1) != '/')
             normzlizedFolderPath += "/";
-	
+
         for (const auto& entry : fs::recursive_directory_iterator(directoryToArchPath))
         {
             try
@@ -47,8 +47,7 @@ namespace zip_functions
                 filePath = ReplaceAll(filePath, "\\", "/");
                 if (entry.is_directory())
                     filePath += "/";
-
-                std::cout << filePath << std::endl;
+                
                 file.write(filePath, ReplaceAll(filePath, normzlizedFolderPath, ""));
             }
             catch (std::runtime_error e)
